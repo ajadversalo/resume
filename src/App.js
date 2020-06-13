@@ -1,8 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Collapse } from '@material-ui/core';
+import Fade from '@material-ui/core/Fade';
+import 'fontsource-roboto';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -18,191 +20,301 @@ import FaceIcon from '@material-ui/icons/Face';
 import CreateIcon from '@material-ui/icons/Create';
 import BuildIcon from '@material-ui/icons/Build';
 
+import Prism from './img/prism.png';
+
+import { Typography } from '@material-ui/core';
+
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    //minWidth: '300px',
-    //margin: '0 auto',
-    //maxWidth: '720px',
-    //height: '100vh'
+    backgroundImage: `url(${Prism})`, 
+    backgroundRepeat: 'repeat', 
+    height: '100vh',
+    display: 'flex',
+    [theme.breakpoints.down('sm')]:{
+      flexDirection: 'column',      
+    },
+    [theme.breakpoints.up('sm')]:{
+      flexDirection: 'row'
+    },
   },
-  paperRoot: {
-    padding: '1rem',
-    marginTop: '1rem',
+  navbarRoot: {
+    backgroundColor: '#1d3557',
+    display: 'flex',
+    justifyContent: 'space-between', 
+
+    [theme.breakpoints.down('sm')]:{
+      
+      flexDirection: 'row',
+      height: '65px',
+      width: '100%'
+    },
+    [theme.breakpoints.up('sm')]:{
+      flexDirection: 'column',
+      width: '100px',
+      height: '100%',
+    },  
+  },
+  
+  navbarSections:{
+    [theme.breakpoints.down('sm')]:{
+      flexDirection: 'column',
+      display: 'none',
+      flexDirection: 'column' 
+      
+    },
+    [theme.breakpoints.up('sm')]:{
+      flexDirection: 'row',
+      display: 'block',
+      flexDirection: 'row' 
+    },
+  },
+  
+  navbarSocialMedia:{
+    display: 'flex', 
+    [theme.breakpoints.down('sm')]:{
+      flexDirection: 'row'
+    },
+    [theme.breakpoints.up('sm')]:{
+      
+      flexDirection: 'column'
+    }
+  },
+  navbarLogo: {
+    marginTop: '0.5rem',
+    paddingLeft: '0.7rem',
+    color: '#FFF'
+  },
+  contentRoot:{
+    height: '100%', 
     width: '100%'
   },
-  categoryItems: {
-    listStyleType: 'none',
-    paddingTop: '3rem'
-  },
-  contactItems: {
-    listStyleType: 'none',
-    "& svg": {
-      margin: '0 auto'
-    }
-  },
-  icon: {
+  
+  navbarIcon: {
     fill: '#FFF',
-    '&:hover':{
-      fill: '#a8dadc'
-    }
+    margin: '0 auto'
+    //height: '42px'
+    // '&:hover':{
+    //   fill: '#a8dadc'
+    // }
   },
+  navbarText: {
+    color: '#FFF',
+    height: '37px'
+  },
+
   listItem : {
-    height: '4rem', 
     display: 'flex', 
     flexDirection: 'column'
-  }
+  },
+  content: {
+    margin: 0, 
+    position: 'absolute', 
+    top: '50%',  
+    left: '50%', 
+    transform: 'translate(-50%, -50%)', 
+    display: 'block'
+  },
+  bottomNavRoot: {
+    [theme.breakpoints.down('sm')]:{
+      maxWidth: '300px', 
+    minWidth: '200px', 
+    position: 'sticky', 
+    margin: '0 auto', 
+    justifyContent: 'space-around', 
+    display: 'flex'
+    },
+    [theme.breakpoints.up('sm')]:{     
+      display: 'none'
+    },
+
+    
+  },
 }));
 
 function App() {
   const classes = useStyles();
-  
+  const [showProjectsButton, setShowProjectsButton] = useState(false);
+  const [showSkillsButton, setShowSkillsButton] = useState(false);
+  const [showAboutButton, setShowAboutButton] = useState(false);
+  const [showContactButton, setShowContactButton] = useState(false);
+
+  const [showContent, setShowContent] = useState(false);
+  const [showProjects, setShowProjects] = useState(false);
+  const [showName, setShowName] = useState(false);
+
+  const buttonProjectsRef = useRef(null);
+  const buttonSkillsRef = useRef(null);
+  const buttonAboutRef = useRef(null);
+  const buttonContactRef = useRef(null);
 
   useEffect(() => {
-    
-    let firstIcon = document.querySelector('#root > div > div.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded > div > div:nth-child(2) > nav > div:nth-child(1) > div.MuiListItemIcon-root.makeStyles-contactItems-4');
-    let firstContainer = document.querySelector('#root > div > div.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded > div > div:nth-child(2) > nav > div:nth-child(1)');
-    let secondContainer = document.querySelector('#root > div > div.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded > div > div:nth-child(2) > nav > div:nth-child(2)');
-    let thirdContainer = document.querySelector('#root > div > div.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded > div > div:nth-child(2) > nav > div:nth-child(3)');
-    let fourthContainer = document.querySelector('#root > div > div.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded > div > div:nth-child(2) > nav > div:nth-child(4)');
-    let fifthContainer = document.querySelector('#root > div > div.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded > div > div:nth-child(2) > nav > div:nth-child(5)');
-
-    let firstText = document.querySelector('#root > div > div.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded > div > div:nth-child(2) > nav > div:nth-child(1) > div.MuiListItemText-root > span');
-    let secondText = document.querySelector('#root > div > div.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded > div > div:nth-child(2) > nav > div:nth-child(2) > div.MuiListItemText-root > span');
-    let thirdText = document.querySelector('#root > div > div.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded > div > div:nth-child(2) > nav > div:nth-child(3) > div.MuiListItemText-root > span');
-    let fourthText = document.querySelector('#root > div > div.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded > div > div:nth-child(2) > nav > div:nth-child(4) > div.MuiListItemText-root > span');
-    let fifthText = document.querySelector('#root > div > div.MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded > div > div:nth-child(2) > nav > div:nth-child(5) > div.MuiListItemText-root > span');
-  
-    firstText.style.opacity = 0;
-    secondText.style.opacity = 0;
-    thirdText.style.opacity = 0;
-    fourthText.style.opacity = 0;
-    fifthText.style.opacity = 0;
-
-    firstContainer.addEventListener("mouseover", function( event ) {   
-      firstText.style.opacity = 100;
-      firstText.style.transition = 'opacity .6s';
+    buttonProjectsRef.current.addEventListener("mouseover", function( event ) {   
+      setShowProjectsButton(true);
     }, false);
 
-    firstContainer.addEventListener("mouseleave", function( event ) {   
-      firstText.style.opacity = 0;
-      firstText.style.transition = 'opacity .6s';
+    buttonProjectsRef.current.addEventListener("mouseleave", function( event ) {   
+      setShowProjectsButton(false);
     }, false);
 
-    secondContainer.addEventListener("mouseover", function( event ) {   
-      secondText.style.opacity = 100;
-      secondText.style.transition = 'opacity .6s';
+    buttonSkillsRef.current.addEventListener("mouseover", function( event ) {   
+      setShowSkillsButton(true);
     }, false);
 
-    secondContainer.addEventListener("mouseleave", function( event ) {   
-      secondText.style.opacity = 0;
-      secondText.style.transition = 'opacity .6s';
+    buttonSkillsRef.current.addEventListener("mouseleave", function( event ) {   
+      setShowSkillsButton(false);
     }, false);
 
-    thirdContainer.addEventListener("mouseover", function( event ) {   
-      thirdText.style.opacity = 100;
-      thirdText.style.transition = 'opacity .6s';
+    buttonAboutRef.current.addEventListener("mouseover", function( event ) {   
+      setShowAboutButton(true);
     }, false);
 
-    thirdContainer.addEventListener("mouseleave", function( event ) {   
-      thirdText.style.opacity = 0;
-      thirdText.style.transition = 'opacity .6s';
+    buttonAboutRef.current.addEventListener("mouseleave", function( event ) {   
+      setShowAboutButton(false);
     }, false);
 
-    fourthContainer.addEventListener("mouseover", function( event ) {   
-      fourthText.style.opacity = 100;
-      fourthText.style.transition = 'opacity .6s';
+    buttonContactRef.current.addEventListener("mouseover", function( event ) {   
+      setShowContactButton(true);
     }, false);
 
-    fourthContainer.addEventListener("mouseleave", function( event ) {   
-      fourthText.style.opacity = 0;
-      fourthText.style.transition = 'opacity .6s';
+    buttonContactRef.current.addEventListener("mouseleave", function( event ) {   
+      setShowContactButton(false);
     }, false);
-
-    fifthContainer.addEventListener("mouseover", function( event ) {   
-      fifthText.style.opacity = 100;
-      fifthText.style.transition = 'opacity .6s';
-    }, false);
-
-    fifthContainer.addEventListener("mouseleave", function( event ) {   
-      fifthText.style.opacity = 0;
-      fifthText.style.transition = 'opacity .6s';
-    }, false);
-
   }, []);
+
+  const [value, setValue] = React.useState('recents');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <div className={classes.root}>
-      
-        <div style={{marginLeft: '7rem'}}>
-          <h1>AJ Adversalo</h1>
-          <h2>Software developer</h2>
-          <hr/>
-        </div>
-        <Paper elevation={1}>
-        <div style={{position: 'fixed', left: 0, top: 0, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#1d3557', width: '100px'}}>
-          <div style={{margin: '0 auto', color: '#FFF'}}>
-            <h1>AJ</h1>
-          </div>
-          <div>
-            <List component="nav" aria-label="main mailbox folders">
-              <ListItem button className={classes.listItem}>
-                <ListItemIcon className={classes.contactItems}>
-                  <DvrIcon className={classes.icon}/>
-                </ListItemIcon>
-                <ListItemText style={{color: '#FFF', display: 'block'}}>
-                    Projects
-                  </ListItemText>
-              </ListItem>
-              <ListItem button className={classes.listItem}>
-                <ListItemIcon className={classes.contactItems}>
-                  <CreateIcon className={classes.icon}/>
-                </ListItemIcon>
-                <ListItemText style={{color: '#FFF', display: 'block'}}>
-                    Education
-                  </ListItemText>
-              </ListItem>
-              <ListItem button className={classes.listItem}>
-                <ListItemIcon className={classes.contactItems}>
-                  <BuildIcon className={classes.icon}/>
-                </ListItemIcon>
-                <ListItemText style={{color: '#FFF', display: 'block'}}>
+      <div className={classes.navbarRoot}>
+        <h1 className={classes.navbarLogo}> AJ </h1>
+        {/* -------------------------------------------------------------------------------- */}
+        <List component="nav" aria-label="main mailbox folders" className={classes.navbarSections}>
+            <ListItem button ref={buttonProjectsRef} className={classes.listItem} onClick={()=>{
+              setShowContent(false)
+              setShowName(false);
+              
+              setTimeout(()=> {
+                setShowProjects(true);
+                setShowContent(true)
+              }, 200)
+              }}>
+              <Collapse in={!showProjectsButton} timeout={500}>
+              <ListItemIcon className={classes.contactItems}>
+                <DvrIcon className={classes.navbarIcon}/>
+              </ListItemIcon>
+              </Collapse>
+              <Collapse in={showProjectsButton} timeout={500}>
+              <ListItemText className={classes.navbarText}>
+                  Projects
+                </ListItemText>
+                </Collapse>
+            </ListItem>
+            
+            <ListItem button ref={buttonSkillsRef} className={classes.listItem}>
+            <Collapse in={!showSkillsButton} timeout={500}>
+              <ListItemIcon>
+                <BuildIcon className={classes.navbarIcon} />
+              </ListItemIcon>
+              </Collapse>
+              <Collapse in={showSkillsButton} timeout={500}>
+                <ListItemText className={classes.navbarText}>
                     Skills
-                  </ListItemText>
-              </ListItem>
-              <ListItem button className={classes.listItem}>
-                <ListItemIcon className={classes.contactItems}>
-                  <FaceIcon className={classes.icon}/>
-                </ListItemIcon>
-                <ListItemText style={{color: '#FFF', display: 'block'}}>
+                </ListItemText>
+              </Collapse>
+            </ListItem>
+            
+            <ListItem button ref={buttonAboutRef} className={classes.listItem} >
+            <Collapse in={!showAboutButton} timeout={500}>
+              <ListItemIcon>
+                <FaceIcon className={classes.navbarIcon}/>
+              </ListItemIcon>
+              </Collapse>
+              <Collapse in={showAboutButton} timeout={500}>
+                <ListItemText className={classes.navbarText}>
                     About
-                  </ListItemText>
-              </ListItem>
-                <ListItem button className={classes.listItem}>
-                  <ListItemIcon className={classes.contactItems}>
-                    <MailOutlineIcon className={classes.icon}/>
-                  </ListItemIcon>
-                  <ListItemText style={{color: '#FFF', display: 'block'}}>
-                    Contact
-                  </ListItemText>
-                </ListItem>
-            </List>
-          </div>
-          <div style={{paddingBottom: '1rem'}}>
-            <List component="nav" aria-label="main mailbox folders">
+                </ListItemText>
+              </Collapse>
+            </ListItem>
+
+            <ListItem button ref={buttonContactRef} className={classes.listItem}>
+            <Collapse in={!showContactButton} timeout={500}>
+              <ListItemIcon>
+                <MailOutlineIcon className={classes.navbarIcon}/>
+              </ListItemIcon>
+              </Collapse>
+              <Collapse in={showContactButton} timeout={500}>
+              <ListItemText className={classes.navbarText}>
+                Contact
+              </ListItemText>
+              </Collapse>
+            </ListItem>
+          </List>
+          {/* -------------------------------------------------------------------------------- */}
+          <List component="nav" aria-label="main mailbox folders" className={classes.navbarSocialMedia}>
+            <ListItem button>
+              <ListItemIcon>
+                <LinkedInIcon className={classes.navbarIcon}/>
+              </ListItemIcon>
+            </ListItem>
               <ListItem button>
-                <ListItemIcon className={classes.contactItems}>
-                  <LinkedInIcon className={classes.icon}/>
+                <ListItemIcon>
+                  <GitHubIcon className={classes.navbarIcon}/>
                 </ListItemIcon>
               </ListItem>
-                <ListItem button>
-                  <ListItemIcon className={classes.contactItems}>
-                    <GitHubIcon className={classes.icon}/>
-                  </ListItemIcon>
-                </ListItem>
-            </List>
+          </List>
+      </div>
+
+      <div className={classes.contentRoot}>
+        <Fade in={showContent}>
+          <div className={classes.content}>
+            {showName &&
+              <div>
+                <Typography variant='h3' >AJ Adversalo</Typography>
+                <h2>Full stack software developer based in Vancouver, British Columbia.</h2>
+              </div>
+            }
+
+            {showProjects &&
+              <div>
+                <Typography variant='h3' >Projects</Typography>
+              </div>
+            }
           </div>
-        </div>
-        </Paper>    
+        </Fade>
+      </div>
+         
+        
+          <BottomNavigation value={value} onChange={handleChange} className={classes.bottomNavRoot}>
+            <BottomNavigationAction label="Projects" value="recents" icon={<DvrIcon />} />
+            <BottomNavigationAction label="Skills" value="favorites" icon={<BuildIcon />} />
+            <BottomNavigationAction label="About" value="nearby" icon={<FaceIcon />} />
+            <BottomNavigationAction label="Contact" value="folder"icon={<MailOutlineIcon />} />
+          </BottomNavigation>
+        
+        
+     {/*
+        <div style={{position: 'fixed', left: 0, top: 0, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#1d3557', width: '100px'}}>
+          <div style={{margin: '0 auto', color: '#FFF'}} 
+          onClick={()=>{
+            setShowIntro(false)
+            setShowProjects(false); 
+            
+            setTimeout(()=> {
+              setShowName(true);
+              setShowIntro(true)
+            }, 200)
+            
+            }}>
+
+          </div>
+ */}
     </div>
   );
 }
