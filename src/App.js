@@ -46,11 +46,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between', 
 
     [theme.breakpoints.down('sm')]:{
-      
       flexDirection: 'row',
       height: '65px',
       width: '100%'
     },
+
     [theme.breakpoints.up('sm')]:{
       flexDirection: 'column',
       width: '100px',
@@ -95,16 +95,19 @@ const useStyles = makeStyles((theme) => ({
   navbarIcon: {
     fill: '#FFF',
     margin: '0 auto'
-    //height: '42px'
-    // '&:hover':{
-    //   fill: '#a8dadc'
-    // }
   },
+  navbarSocialMediaIcon: {
+    fill: '#FFF',
+    margin: '0 auto',
+    '&:hover':{
+      fill: '#a8dadc'
+    }
+  },
+
   navbarText: {
     color: '#FFF',
     height: '37px'
   },
-
   listItem : {
     display: 'flex', 
     flexDirection: 'column'
@@ -122,15 +125,15 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: '300px', 
     minWidth: '200px', 
     position: 'sticky', 
-    margin: '0 auto', 
+    margin: '0 auto 1rem auto', 
     justifyContent: 'space-around', 
     display: 'flex'
     },
     [theme.breakpoints.up('sm')]:{     
       display: 'none'
     },
-
-    
+    borderRadius: '5px',
+    padding: '0 1rem'    
   },
 }));
 
@@ -144,6 +147,8 @@ function App() {
   const [showContent, setShowContent] = useState(false);
   const [showProjects, setShowProjects] = useState(false);
   const [showName, setShowName] = useState(false);
+  const [showSkills, setShowSkills] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
 
   const buttonProjectsRef = useRef(null);
   const buttonSkillsRef = useRef(null);
@@ -190,20 +195,44 @@ function App() {
     setValue(newValue);
   };
 
+  const move = (page) => {
+    
+    //Set all false
+    setShowContent(false)
+    setShowName(false);
+    setShowProjects(false);
+    setShowSkills(false);
+    setShowAbout(false);
+    
+    setTimeout(()=> {
+      switch(page){
+        case 'name':
+          setShowName(true);
+          break;
+        case 'project':
+          setShowProjects(true);
+          break;
+        case 'about':
+          setShowAbout(true);
+          break;
+        case 'skills':
+          setShowSkills(true);
+          break;
+        default:
+            break;
+      }  
+      setShowContent(true);
+    }, 500)
+}
+
   return (
     <div className={classes.root}>
       <div className={classes.navbarRoot}>
-        <h1 className={classes.navbarLogo}> AJ </h1>
+        <h1 className={classes.navbarLogo} onClick={()=>{move('name')}}> AJ </h1>
         {/* -------------------------------------------------------------------------------- */}
         <List component="nav" aria-label="main mailbox folders" className={classes.navbarSections}>
             <ListItem button ref={buttonProjectsRef} className={classes.listItem} onClick={()=>{
-              setShowContent(false)
-              setShowName(false);
-              
-              setTimeout(()=> {
-                setShowProjects(true);
-                setShowContent(true)
-              }, 200)
+              move('project');
               }}>
               <Collapse in={!showProjectsButton} timeout={500}>
               <ListItemIcon className={classes.contactItems}>
@@ -217,7 +246,9 @@ function App() {
                 </Collapse>
             </ListItem>
             
-            <ListItem button ref={buttonSkillsRef} className={classes.listItem}>
+            <ListItem button ref={buttonSkillsRef} className={classes.listItem} onClick={()=>{
+              move('skills');
+              }}>
             <Collapse in={!showSkillsButton} timeout={500}>
               <ListItemIcon>
                 <BuildIcon className={classes.navbarIcon} />
@@ -230,7 +261,9 @@ function App() {
               </Collapse>
             </ListItem>
             
-            <ListItem button ref={buttonAboutRef} className={classes.listItem} >
+            <ListItem button ref={buttonAboutRef} className={classes.listItem} onClick={()=>{
+              move('about');
+              }}>
             <Collapse in={!showAboutButton} timeout={500}>
               <ListItemIcon>
                 <FaceIcon className={classes.navbarIcon}/>
@@ -260,12 +293,12 @@ function App() {
           <List component="nav" aria-label="main mailbox folders" className={classes.navbarSocialMedia}>
             <ListItem button>
               <ListItemIcon>
-                <LinkedInIcon className={classes.navbarIcon}/>
+                <LinkedInIcon className={classes.navbarSocialMediaIcon}/>
               </ListItemIcon>
             </ListItem>
               <ListItem button>
                 <ListItemIcon>
-                  <GitHubIcon className={classes.navbarIcon}/>
+                  <GitHubIcon className={classes.navbarSocialMediaIcon}/>
                 </ListItemIcon>
               </ListItem>
           </List>
@@ -274,18 +307,32 @@ function App() {
       <div className={classes.contentRoot}>
         <Fade in={showContent}>
           <div className={classes.content}>
+            
             {showName &&
               <div>
-                <Typography variant='h3' >AJ Adversalo</Typography>
+                <Typography variant='h3'>AJ Adversalo</Typography>
                 <h2>Full stack software developer based in Vancouver, British Columbia.</h2>
               </div>
             }
 
             {showProjects &&
               <div>
-                <Typography variant='h3' >Projects</Typography>
+                <Typography variant='h3'>Projects</Typography>
               </div>
             }
+
+            {showSkills &&
+              <div>
+                <Typography variant='h3'>Skills</Typography>
+              </div>
+            }
+
+            {showAbout &&
+              <div>
+                <Typography variant='h3'>About</Typography>
+              </div>
+            }
+
           </div>
         </Fade>
       </div>
