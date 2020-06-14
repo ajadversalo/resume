@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
 import './Home.css';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Collapse } from '@material-ui/core';
-import Fade from '@material-ui/core/Fade';
-import 'fontsource-roboto';
 import Navbar from './Navbar';
-
-import ContactIcon from '@material-ui/icons/MailOutline';
-import ProjectsIcon from '@material-ui/icons/Dvr';
-import AboutIcon from '@material-ui/icons/Face';
-import SkillsIcon from '@material-ui/icons/Build';
-
-import Prism from './img/prism.png';
-
-import { Typography } from '@material-ui/core';
+import 'fontsource-roboto';
 
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+
+import AboutIcon from '@material-ui/icons/Face';
+import ContactIcon from '@material-ui/icons/MailOutline';
+import ProjectsIcon from '@material-ui/icons/Dvr';
+import SkillsIcon from '@material-ui/icons/Build';
+import { Typography } from '@material-ui/core';
+import Fade from '@material-ui/core/Fade';
+import Prism from './img/prism.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,10 +46,6 @@ const useStyles = makeStyles((theme) => ({
       transform: 'translate(-50%, -50%)',
       minWidth: '400px',
     }
-  },
-  listItem : {
-    display: 'flex', 
-    flexDirection: 'column'
   },
   bottomNavRoot: {
     [theme.breakpoints.down('sm')]:{
@@ -157,30 +150,12 @@ function Home() {
           </div>
         </Fade>
       </div>        
-          <BottomNavigation value={value} onChange={handleChange} className={classes.bottomNavRoot}>
-            <BottomNavigationAction label="Projects" value="projects" icon={<ProjectsIcon />} />
-            <BottomNavigationAction label="Skills" value="skills" icon={<SkillsIcon />} />
-            <BottomNavigationAction label="About" value="about" icon={<AboutIcon />} />
-            <BottomNavigationAction label="Contact" value="contact" icon={<ContactIcon />} />
-          </BottomNavigation>
-        
-        
-     {/*
-        <div style={{position: 'fixed', left: 0, top: 0, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: '#1d3557', width: '100px'}}>
-          <div style={{margin: '0 auto', color: '#FFF'}} 
-          onClick={()=>{
-            setShowIntro(false)
-            setShowProjects(false); 
-            
-            setTimeout(()=> {
-              setShowName(true);
-              setShowIntro(true)
-            }, 200)
-            
-            }}>
-
-          </div>
- */}
+      <BottomNavigation value={value} onChange={handleChange} className={classes.bottomNavRoot}>
+        <BottomNavigationAction label="Projects" value="projects" icon={<ProjectsIcon />} />
+        <BottomNavigationAction label="Skills" value="skills" icon={<SkillsIcon />} />
+        <BottomNavigationAction label="About" value="about" icon={<AboutIcon />} />
+        <BottomNavigationAction label="Contact" value="contact" icon={<ContactIcon />} />
+      </BottomNavigation>
     </div>
   );
 }
