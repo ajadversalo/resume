@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
-import './App.css';
+import './Home.css';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import { Collapse } from '@material-ui/core';
 import Fade from '@material-ui/core/Fade';
 import 'fontsource-roboto';
@@ -11,14 +10,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import DvrIcon from '@material-ui/icons/Dvr';
-import FaceIcon from '@material-ui/icons/Face';
-import CreateIcon from '@material-ui/icons/Create';
-import BuildIcon from '@material-ui/icons/Build';
+import ContactIcon from '@material-ui/icons/MailOutline';
+import ProjectsIcon from '@material-ui/icons/Dvr';
+import AboutIcon from '@material-ui/icons/Face';
+import SkillsIcon from '@material-ui/icons/Build';
 
 import Prism from './img/prism.png';
 
@@ -61,14 +58,11 @@ const useStyles = makeStyles((theme) => ({
   navbarSections:{
     [theme.breakpoints.down('sm')]:{
       flexDirection: 'column',
-      display: 'none',
-      flexDirection: 'column' 
-      
+      display: 'none',     
     },
     [theme.breakpoints.up('sm')]:{
       flexDirection: 'row',
       display: 'block',
-      flexDirection: 'row' 
     },
   },
   
@@ -91,7 +85,21 @@ const useStyles = makeStyles((theme) => ({
     height: '100%', 
     width: '100%'
   },
-  
+  content: {
+    margin: 0,
+    [theme.breakpoints.down('sm')]:{
+      padding: '1rem',
+    position: 'relative'
+    },
+    [theme.breakpoints.up('sm')]:{
+      display: 'block',
+      left: '50%', 
+      position: 'absolute', 
+      top: '50%',  
+      transform: 'translate(-50%, -50%)',
+      minWidth: '400px',
+    }
+  },
   navbarIcon: {
     fill: '#FFF',
     margin: '0 auto'
@@ -103,7 +111,6 @@ const useStyles = makeStyles((theme) => ({
       fill: '#a8dadc'
     }
   },
-
   navbarText: {
     color: '#FFF',
     height: '37px'
@@ -112,14 +119,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex', 
     flexDirection: 'column'
   },
-  content: {
-    margin: 0, 
-    position: 'absolute', 
-    top: '50%',  
-    left: '50%', 
-    transform: 'translate(-50%, -50%)', 
-    display: 'block'
-  },
+ 
   bottomNavRoot: {
     [theme.breakpoints.down('sm')]:{
       maxWidth: '300px', 
@@ -137,7 +137,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function App() {
+function Home() {
   const classes = useStyles();
   const [showProjectsButton, setShowProjectsButton] = useState(false);
   const [showSkillsButton, setShowSkillsButton] = useState(false);
@@ -196,8 +196,6 @@ function App() {
   };
 
   const move = (page) => {
-    
-    //Set all false
     setShowContent(false)
     setShowName(false);
     setShowProjects(false);
@@ -228,7 +226,7 @@ function App() {
   return (
     <div className={classes.root}>
       <div className={classes.navbarRoot}>
-        <h1 className={classes.navbarLogo} onClick={()=>{move('name')}}> AJ </h1>
+        <h1 className={classes.navbarLogo} onClick={()=>{move('name'); handleChange('none');}}> AJ </h1>
         {/* -------------------------------------------------------------------------------- */}
         <List component="nav" aria-label="main mailbox folders" className={classes.navbarSections}>
             <ListItem button ref={buttonProjectsRef} className={classes.listItem} onClick={()=>{
@@ -236,7 +234,7 @@ function App() {
               }}>
               <Collapse in={!showProjectsButton} timeout={500}>
               <ListItemIcon className={classes.contactItems}>
-                <DvrIcon className={classes.navbarIcon}/>
+                <ProjectsIcon className={classes.navbarIcon}/>
               </ListItemIcon>
               </Collapse>
               <Collapse in={showProjectsButton} timeout={500}>
@@ -251,7 +249,7 @@ function App() {
               }}>
             <Collapse in={!showSkillsButton} timeout={500}>
               <ListItemIcon>
-                <BuildIcon className={classes.navbarIcon} />
+                <SkillsIcon className={classes.navbarIcon} />
               </ListItemIcon>
               </Collapse>
               <Collapse in={showSkillsButton} timeout={500}>
@@ -266,7 +264,7 @@ function App() {
               }}>
             <Collapse in={!showAboutButton} timeout={500}>
               <ListItemIcon>
-                <FaceIcon className={classes.navbarIcon}/>
+                <AboutIcon className={classes.navbarIcon}/>
               </ListItemIcon>
               </Collapse>
               <Collapse in={showAboutButton} timeout={500}>
@@ -279,7 +277,7 @@ function App() {
             <ListItem button ref={buttonContactRef} className={classes.listItem}>
             <Collapse in={!showContactButton} timeout={500}>
               <ListItemIcon>
-                <MailOutlineIcon className={classes.navbarIcon}/>
+                <ContactIcon className={classes.navbarIcon}/>
               </ListItemIcon>
               </Collapse>
               <Collapse in={showContactButton} timeout={500}>
@@ -330,19 +328,25 @@ function App() {
             {showAbout &&
               <div>
                 <Typography variant='h3'>About</Typography>
+                <p>Hoping for better opportunities, my family and I moved here in the spring of 2016. 
+                  As I got acquainted to the BC job market. I quickly found out how vast IT opportunities are. 
+                  My journey started as a volunteer teaching seniors the basics of computers at Burnaby Neighbourhood House, 
+                  after a month, I got my first contract job at Electronic Arts as a Level 2 Desktop Support. 
+                  Soon right after, I found myself setting up and suporting small networks or SOHOs at Bosa Properties. 
+                  As my career progressed at Taymor Industries, being a Junior to the Systems Admin I had a chance to do 
+                  scripting which eventually made me realize what I really wanted to pursue so I finally decided to take the 
+                  Software Systems Developer Program at BCIT. I've recently completed the program and I'm excited to start 
+                  my career as a software developer.</p>
               </div>
             }
-
           </div>
         </Fade>
-      </div>
-         
-        
+      </div>        
           <BottomNavigation value={value} onChange={handleChange} className={classes.bottomNavRoot}>
-            <BottomNavigationAction label="Projects" value="recents" icon={<DvrIcon />} />
-            <BottomNavigationAction label="Skills" value="favorites" icon={<BuildIcon />} />
-            <BottomNavigationAction label="About" value="nearby" icon={<FaceIcon />} />
-            <BottomNavigationAction label="Contact" value="folder"icon={<MailOutlineIcon />} />
+            <BottomNavigationAction label="Projects" value="projects" icon={<ProjectsIcon />} />
+            <BottomNavigationAction label="Skills" value="skills" icon={<SkillsIcon />} />
+            <BottomNavigationAction label="About" value="about" icon={<AboutIcon />} />
+            <BottomNavigationAction label="Contact" value="contact" icon={<ContactIcon />} />
           </BottomNavigation>
         
         
@@ -366,4 +370,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
