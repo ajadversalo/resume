@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundImage: `url(${Prism})`, 
     backgroundRepeat: 'repeat', 
-    height: '100vh',
+    minHeight: '100vh',
+    maxHeight: '100%',
     display: 'flex',
     [theme.breakpoints.down('sm')]:{
       flexDirection: 'column',      
@@ -50,11 +51,14 @@ const useStyles = makeStyles((theme) => ({
   bottomNavRoot: {
     [theme.breakpoints.down('sm')]:{
       maxWidth: '300px', 
-    minWidth: '200px', 
-    position: 'sticky', 
-    margin: '0 auto 1rem auto', 
-    justifyContent: 'space-around', 
-    display: 'flex'
+      minWidth: '200px', 
+      position: 'fixed', 
+      top: '90%',
+      left: '50%',
+      transform: 'translate(-50%, 0)',
+      margin: '0 auto 1rem auto', 
+      justifyContent: 'space-around', 
+      display: 'flex'
     },
     [theme.breakpoints.up('sm')]:{     
       display: 'none'
@@ -67,9 +71,9 @@ const useStyles = makeStyles((theme) => ({
 function Home() {
   const classes = useStyles();
 
-  const [showContent, setShowContent] = useState(false);
+  const [showContent, setShowContent] = useState(true);
   const [showProjects, setShowProjects] = useState(false);
-  const [showName, setShowName] = useState(false);
+  const [showName, setShowName] = useState(true);
   const [showSkills, setShowSkills] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
 
@@ -77,6 +81,7 @@ function Home() {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    move(newValue);
   };
 
   const move = (page) => {
@@ -91,7 +96,7 @@ function Home() {
         case 'name':
           setShowName(true);
           break;
-        case 'project':
+        case 'projects':
           setShowProjects(true);
           break;
         case 'about':
@@ -145,17 +150,38 @@ function Home() {
                   scripting which eventually made me realize what I really wanted to pursue so I finally decided to take the 
                   Software Systems Developer Program at BCIT. I've recently completed the program and I'm excited to start 
                   my career as a software developer.</p>
+
+                  <p>Hoping for better opportunities, my family and I moved here in the spring of 2016. 
+                  As I got acquainted to the BC job market. I quickly found out how vast IT opportunities are. 
+                  My journey started as a volunteer teaching seniors the basics of computers at Burnaby Neighbourhood House, 
+                  after a month, I got my first contract job at Electronic Arts as a Level 2 Desktop Support. 
+                  Soon right after, I found myself setting up and suporting small networks or SOHOs at Bosa Properties. 
+                  As my career progressed at Taymor Industries, being a Junior to the Systems Admin I had a chance to do 
+                  scripting which eventually made me realize what I really wanted to pursue so I finally decided to take the 
+                  Software Systems Developer Program at BCIT. I've recently completed the program and I'm excited to start 
+                  my career as a software developer.</p>
+
+                  <p>Hoping for better opportunities, my family and I moved here in the spring of 2016. 
+                  As I got acquainted to the BC job market. I quickly found out how vast IT opportunities are. 
+                  My journey started as a volunteer teaching seniors the basics of computers at Burnaby Neighbourhood House, 
+                  after a month, I got my first contract job at Electronic Arts as a Level 2 Desktop Support. 
+                  Soon right after, I found myself setting up and suporting small networks or SOHOs at Bosa Properties. 
+                  As my career progressed at Taymor Industries, being a Junior to the Systems Admin I had a chance to do 
+                  scripting which eventually made me realize what I really wanted to pursue so I finally decided to take the 
+                  Software Systems Developer Program at BCIT. I've recently completed the program and I'm excited to start 
+                  my career as a software developer.</p>
               </div>
             }
           </div>
         </Fade>
+        <BottomNavigation value={value} onChange={handleChange} className={classes.bottomNavRoot}>
+          <BottomNavigationAction label="Projects" value="projects" icon={<ProjectsIcon />} />
+          <BottomNavigationAction label="Skills" value="skills" icon={<SkillsIcon />} />
+          <BottomNavigationAction label="About" value="about" icon={<AboutIcon />} />
+          <BottomNavigationAction label="Contact" value="contact" icon={<ContactIcon />} />
+        </BottomNavigation>
       </div>        
-      <BottomNavigation value={value} onChange={handleChange} className={classes.bottomNavRoot}>
-        <BottomNavigationAction label="Projects" value="projects" icon={<ProjectsIcon />} />
-        <BottomNavigationAction label="Skills" value="skills" icon={<SkillsIcon />} />
-        <BottomNavigationAction label="About" value="about" icon={<AboutIcon />} />
-        <BottomNavigationAction label="Contact" value="contact" icon={<ContactIcon />} />
-      </BottomNavigation>
+      
     </div>
   );
 }

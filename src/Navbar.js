@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]:{
       flexDirection: 'column',
       width: '100px',
-      height: '100%',
+      minHeight: '100vh',
+      maxHeight: '100%',
     },  
   },
   categorySection:{
@@ -132,7 +133,7 @@ function Navbar(props) {
         <h1 className={classes.logo} onClick={() => { handleClick('name') }}> AJ </h1>
 
         <List component="nav" aria-label="main mailbox folders" className={classes.categorySection}>
-            <ListItem button ref={buttonProjectsRef} className={classes.listItem} onClick={() => { handleClick('project') }}>
+            <ListItem button ref={buttonProjectsRef} className={classes.listItem} onClick={() => { handleClick('projects') }}>
               <Collapse in={!showProjectsButton} timeout={500}>
               <ListItemIcon>
                 <ProjectsIcon className={classes.icon}/>
