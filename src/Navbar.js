@@ -136,7 +136,7 @@ function Navbar(props) {
             <ListItem button ref={buttonProjectsRef} className={classes.listItem} onClick={() => { handleClick('projects') }}>
               <Collapse in={!showProjectsButton} timeout={500}>
               <ListItemIcon>
-                <ProjectsIcon className={classes.icon}/>
+                <ProjectsIcon className={classes.icon} style={{fill: '#E9B44C'}}/>
               </ListItemIcon>
               </Collapse>
               <Collapse in={showProjectsButton} timeout={500}>

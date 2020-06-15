@@ -30,8 +30,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   contentRoot:{
-    height: '100%', 
-    width: '100%'
+    height: '100vh',
+    width: '100%',
+    overflowY: 'auto',
+    display: 'grid', 
+    alignItems: 'center'
   },
   content: {
     margin: 0,
@@ -41,10 +44,11 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up('sm')]:{
       display: 'block',
-      left: '50%', 
-      position: 'absolute', 
-      top: '50%',  
-      transform: 'translate(-50%, -50%)',
+      padding: '0 4rem',
+      // left: '50%', 
+      // position: 'absolute', 
+      // top: '50%',  
+      // transform: 'translate(-50%, -50%)',
       minWidth: '400px',
     }
   },
@@ -114,8 +118,10 @@ function Home() {
 
   return (
     <div className={classes.root}>
-      <Navbar move={move} handleChange={handleChange}/>     
-      <div className={classes.contentRoot}>
+      <div>
+        <Navbar move={move} handleChange={handleChange}/>     
+      </div>
+      <div className={classes.contentRoot} >
         <Fade in={showContent}>
           <div className={classes.content}>
             
@@ -139,7 +145,7 @@ function Home() {
             }
 
             {showAbout &&
-              <div>
+              <div style={{overflow: 'hidden'}}>
                 <Typography variant='h3'>About</Typography>
                 <p>Hoping for better opportunities, my family and I moved here in the spring of 2016. 
                   As I got acquainted to the BC job market. I quickly found out how vast IT opportunities are. 
@@ -149,27 +155,7 @@ function Home() {
                   As my career progressed at Taymor Industries, being a Junior to the Systems Admin I had a chance to do 
                   scripting which eventually made me realize what I really wanted to pursue so I finally decided to take the 
                   Software Systems Developer Program at BCIT. I've recently completed the program and I'm excited to start 
-                  my career as a software developer.</p>
-
-                  <p>Hoping for better opportunities, my family and I moved here in the spring of 2016. 
-                  As I got acquainted to the BC job market. I quickly found out how vast IT opportunities are. 
-                  My journey started as a volunteer teaching seniors the basics of computers at Burnaby Neighbourhood House, 
-                  after a month, I got my first contract job at Electronic Arts as a Level 2 Desktop Support. 
-                  Soon right after, I found myself setting up and suporting small networks or SOHOs at Bosa Properties. 
-                  As my career progressed at Taymor Industries, being a Junior to the Systems Admin I had a chance to do 
-                  scripting which eventually made me realize what I really wanted to pursue so I finally decided to take the 
-                  Software Systems Developer Program at BCIT. I've recently completed the program and I'm excited to start 
-                  my career as a software developer.</p>
-
-                  <p>Hoping for better opportunities, my family and I moved here in the spring of 2016. 
-                  As I got acquainted to the BC job market. I quickly found out how vast IT opportunities are. 
-                  My journey started as a volunteer teaching seniors the basics of computers at Burnaby Neighbourhood House, 
-                  after a month, I got my first contract job at Electronic Arts as a Level 2 Desktop Support. 
-                  Soon right after, I found myself setting up and suporting small networks or SOHOs at Bosa Properties. 
-                  As my career progressed at Taymor Industries, being a Junior to the Systems Admin I had a chance to do 
-                  scripting which eventually made me realize what I really wanted to pursue so I finally decided to take the 
-                  Software Systems Developer Program at BCIT. I've recently completed the program and I'm excited to start 
-                  my career as a software developer.</p>
+                  my career as a software developer.</p>                 
               </div>
             }
           </div>
