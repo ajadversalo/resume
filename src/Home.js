@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${Prism})`, 
     backgroundRepeat: 'repeat', 
     minHeight: '100vh',
+    minWidth: '375px',
     maxHeight: '100%',
     display: 'flex',
     [theme.breakpoints.down('sm')]:{
@@ -30,11 +31,17 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   contentRoot:{
-    display: 'grid', 
-    height: '100vh',
+    display: 'grid',
+    [theme.breakpoints.down('sm')]:{
+      alignItems: 'flex-start'     
+    },
+    [theme.breakpoints.up('sm')]:{
+      alignItems: 'center'
+    },
+    height: '100vh-65px',
     width: '100%',
     overflowY: 'auto',
-    alignItems: 'center'
+    
   },
   content: {
     margin: 0,
@@ -115,6 +122,18 @@ function Home() {
             {showPage === 'skills' &&
               <div>
                 <Typography variant='h3'>Skills</Typography>
+                <ul>
+                  <li>Java</li>
+                  <li>C#</li>
+                  <li>ASP.Net Core(Web API and MVC)</li>
+                  <li>HTML</li>
+                  <li>CSS</li>
+                  <li>Javascript</li>
+                  <li>ReactJS</li>
+                  <li>React-Native</li>
+                  <li>SQL</li>
+                  <li>Android</li>
+                </ul>
               </div>
             }
 

@@ -50,9 +50,17 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: 'column'
     }
   },
+  lastName : {
+    [theme.breakpoints.down('sm')]:{
+      display: 'static',     
+    },
+    [theme.breakpoints.up('sm')]:{
+      display: 'none',     
+    },
+  },
   logo: {
     marginTop: '0.5rem',
-    paddingLeft: '0.7rem',
+    paddingLeft: '1.5rem',
     color: '#FFF'
   },
   icon: {
@@ -72,8 +80,18 @@ const useStyles = makeStyles((theme) => ({
   },
   listItem : {
     display: 'flex', 
-    flexDirection: 'column'
+    flexDirection: 'column',
+    height: '75px'
   },
+  socialMediaItem: {
+    [theme.breakpoints.down('sm')]:{
+      padding: '0',    
+    },
+    [theme.breakpoints.up('sm')]:{
+      padding: '8px 16px',
+      height: '50px'    
+    },
+  }
 }));
 
 function Navbar(props) {
@@ -129,7 +147,10 @@ function Navbar(props) {
 
   return (
       <div className={classes.root}>
+        {/*
         <h1 className={classes.logo} onClick={() => { handleClick('name') }}> AJ </h1>
+        */}
+        <h1 className={classes.logo} onClick={() => { handleClick('name') }}> AJ <span className={classes.lastName}>Adversalo</span></h1>
 
         <List component="nav" aria-label="main mailbox folders" className={classes.categorySection}>
             <ListItem button ref={buttonProjectsRef} className={classes.listItem} onClick={() => { handleClick('projects') }}>
@@ -186,15 +207,15 @@ function Navbar(props) {
           </List>
 
           <List component="nav" aria-label="main mailbox folders" className={classes.socialMediaSection}>
-            <ListItem button>
+            <ListItem button className={classes.socialMediaItem}>
               <ListItemIcon>
                 <LinkedInIcon className={classes.socialMediaIcon}/>
               </ListItemIcon>
             </ListItem>
-              <ListItem button>
+              <ListItem button className={classes.socialMediaItem}> 
                 <ListItemIcon>
                   <GitHubIcon className={classes.socialMediaIcon}/>
-                </ListItemIcon>
+                </ListItemIcon >
               </ListItem>
           </List>
       </div>
