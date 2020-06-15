@@ -30,10 +30,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   contentRoot:{
+    display: 'grid', 
     height: '100vh',
     width: '100%',
     overflowY: 'auto',
-    display: 'grid', 
     alignItems: 'center'
   },
   content: {
@@ -45,15 +45,12 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]:{
       display: 'block',
       padding: '0 4rem',
-      // left: '50%', 
-      // position: 'absolute', 
-      // top: '50%',  
-      // transform: 'translate(-50%, -50%)',
       minWidth: '400px',
     }
   },
   bottomNavRoot: {
     [theme.breakpoints.down('sm')]:{
+      display: 'flex',
       maxWidth: '300px', 
       minWidth: '200px', 
       position: 'fixed', 
@@ -62,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
       transform: 'translate(-50%, 0)',
       margin: '0 auto 1rem auto', 
       justifyContent: 'space-around', 
-      display: 'flex'
     },
     [theme.breakpoints.up('sm')]:{     
       display: 'none'
@@ -76,11 +72,7 @@ function Home() {
   const classes = useStyles();
 
   const [showContent, setShowContent] = useState(true);
-  const [showProjects, setShowProjects] = useState(false);
-  const [showName, setShowName] = useState(true);
-  const [showSkills, setShowSkills] = useState(false);
-  const [showAbout, setShowAbout] = useState(false);
-
+  const [showPage, setShowPage] = useState(null);
   const [value, setValue] = React.useState('recents');
 
   const handleChange = (event, newValue) => {
@@ -90,28 +82,10 @@ function Home() {
 
   const move = (page) => {
     setShowContent(false)
-    setShowName(false);
-    setShowProjects(false);
-    setShowSkills(false);
-    setShowAbout(false);
+    setShowPage(null);
     
     setTimeout(()=> {
-      switch(page){
-        case 'name':
-          setShowName(true);
-          break;
-        case 'projects':
-          setShowProjects(true);
-          break;
-        case 'about':
-          setShowAbout(true);
-          break;
-        case 'skills':
-          setShowSkills(true);
-          break;
-        default:
-            break;
-      }  
+      setShowPage(page);
       setShowContent(true);
     }, 500)
 }
@@ -119,32 +93,32 @@ function Home() {
   return (
     <div className={classes.root}>
       <div>
-        <Navbar move={move} handleChange={handleChange}/>     
+        <Navbar move={move} handleChange={handleChange} showPage={showPage}/>     
       </div>
       <div className={classes.contentRoot} >
         <Fade in={showContent}>
           <div className={classes.content}>
             
-            {showName &&
+            {showPage === 'name' &&
               <div>
                 <Typography variant='h3'>AJ Adversalo</Typography>
                 <h2>Full stack software developer based in Vancouver, British Columbia.</h2>
               </div>
             }
 
-            {showProjects &&
+            {showPage === 'projects' &&
               <div>
                 <Typography variant='h3'>Projects</Typography>
               </div>
             }
 
-            {showSkills &&
+            {showPage === 'skills' &&
               <div>
                 <Typography variant='h3'>Skills</Typography>
               </div>
             }
 
-            {showAbout &&
+            {showPage === 'about' &&
               <div style={{overflow: 'hidden'}}>
                 <Typography variant='h3'>About</Typography>
                 <p>Hoping for better opportunities, my family and I moved here in the spring of 2016. 

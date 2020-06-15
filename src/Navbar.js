@@ -82,8 +82,7 @@ function Navbar(props) {
   const [showSkillsButton, setShowSkillsButton] = useState(false);
   const [showAboutButton, setShowAboutButton] = useState(false);
   const [showContactButton, setShowContactButton] = useState(false);
-
-  const { move } = props;
+  const { move, showPage } = props;
 
   const buttonProjectsRef = useRef(null);
   const buttonSkillsRef = useRef(null);
@@ -136,7 +135,7 @@ function Navbar(props) {
             <ListItem button ref={buttonProjectsRef} className={classes.listItem} onClick={() => { handleClick('projects') }}>
               <Collapse in={!showProjectsButton} timeout={500}>
               <ListItemIcon>
-                <ProjectsIcon className={classes.icon} style={{fill: '#E9B44C'}}/>
+                <ProjectsIcon className={classes.icon} style={{fill: showPage === 'projects' ? '#E9B44C' : '#FFF'}}/>
               </ListItemIcon>
               </Collapse>
               <Collapse in={showProjectsButton} timeout={500}>
@@ -149,7 +148,7 @@ function Navbar(props) {
             <ListItem button ref={buttonSkillsRef} className={classes.listItem} onClick={() => { handleClick('skills') }}>
             <Collapse in={!showSkillsButton} timeout={500}>
               <ListItemIcon>
-                <SkillsIcon className={classes.icon} />
+                <SkillsIcon className={classes.icon} style={{fill: showPage === 'skills' ? '#E9B44C' : '#FFF'}}/>
               </ListItemIcon>
               </Collapse>
               <Collapse in={showSkillsButton} timeout={500}>
@@ -162,7 +161,7 @@ function Navbar(props) {
             <ListItem button ref={buttonAboutRef} className={classes.listItem} onClick={() => { handleClick('about') }}>
             <Collapse in={!showAboutButton} timeout={500}>
               <ListItemIcon>
-                <AboutIcon className={classes.icon}/>
+                <AboutIcon className={classes.icon} style={{fill: showPage === 'about' ? '#E9B44C' : '#FFF'}}/>
               </ListItemIcon>
               </Collapse>
               <Collapse in={showAboutButton} timeout={500}>
@@ -175,7 +174,7 @@ function Navbar(props) {
             <ListItem button ref={buttonContactRef} className={classes.listItem}>
             <Collapse in={!showContactButton} timeout={500}>
               <ListItemIcon>
-                <ContactIcon className={classes.icon}/>
+                <ContactIcon className={classes.icon} style={{fill: showPage === 'contact' ? '#E9B44C' : '#FFF'}}/>
               </ListItemIcon>
               </Collapse>
               <Collapse in={showContactButton} timeout={500}>
